@@ -1,0 +1,399 @@
+<div class="header">
+	<toolbar></toolbar>
+	<preview></preview>
+</div>
+
+<div class="main" *ngIf="scoreService.game() != null">
+	<div class="row">
+		<div class="col-sm-4 section">
+			<controls></controls>
+			<summary></summary>
+		</div>
+		<div class="col-sm-5 section" style="z-index:9;">
+			<scorecard></scorecard>			
+		</div>
+		<div class="col-sm-3 section" style="z-index:8;">
+			<overs></overs>
+		</div>
+	</div>
+</div>
+
+<modal name="teamListModal" size="lg" [title]="'Manage Teams'">
+	<div class="modal-body">
+		<div class="table-header-buttons">
+			<button class="button button-info" (click)="popupService.open('editTeamModal'); selectedTeam = teamsService.blankTeam();"><fa-icon icon="plus-circle"></fa-icon> New Team</button>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let team of teamsService.getTeams()">
+					<td>{{team.fullName}}</td>
+					<td class="actions">
+						<a title="Manage Players List" (click)="manageTeamPlayersList(team.id)">
+							<fa-icon icon="users-cog"></fa-icon>
+						</a>
+						<a title="Edit Team Information" (click)="editTeamModal(team.id)">
+							<fa-icon icon="edit"></fa-icon>
+						</a>
+						<a title="Remove Team" (click)="popupService.confirm('Delete: ' + team.midName + '?', 'Are you sure you want to delete this team?', teamsService.deleteTeam, [team.id], this)">
+							<fa-icon icon="trash-alt"></fa-icon>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</modal>
+
+<modal *ngIf="selectedTeam != null" name="teamPlayersListModal" size="lg" [title]="selectedTeam.fullName + ': Players List'">
+	<div class="modal-body">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let player of selectedTeam.players">
+					<td>{{player.name}}</td>
+					<td class="actions">
+						<a title="Edit Player Information" (click)="editPlayerModal(player)">
+							<fa-icon icon="edit"></fa-icon>
+						</a>
+						<a title="Remove Player" (click)="popupService.confirm('Delete: ' + player.name + '?', 'Are you sure you want to delete this player?', teamsService.deletePlayer, [selectedTeam.id, player.id], this)">
+							<fa-icon icon="trash-alt"></fa-icon>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</modal>
+
+<modal *ngIf="selectedTeam != null" name="editTeamModal" size="md" [title]="'Edit Team: ' + selectedTeam.fullName" (onClose)="selectedTeam = null">
+	<div class="modal-body">
+		<div class="form-group">
+			<div class="label">Mini Name <span class="label-example">HCC</span></div>
+			<div class="control">
+				<input type="text" [(ngModel)]="selectedTeam.miniName">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="label">Short Name <span class="label-example">Highton</span></div>
+			<div class="control">
+				<input type="text" [(ngModel)]="selectedTeam.shortName">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="label">Mid Name <span class="label-example">Highton CC</span></div>
+			<div class="control">
+				<input type="text" [(ngModel)]="selectedTeam.midName">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="label">Full Name <span class="label-example">Highton Cricket Club</span></div>
+			<div class="control">
+				<input type="text" [(ngModel)]="selectedTeam.fullName">
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="button button-info" (click)="editTeam()"><fa-icon icon="save"></fa-icon> Save</button>
+	</div>
+</modal>
+
+<modal *ngIf="selectedPlayer != null" name="editPlayerModal" size="md" [title]="'Edit Player: ' + selectedPlayer.name" (onClose)="selectedPlayer = null">
+	<div class="modal-body">
+		<div class="form-group">
+			<div class="label">Name</div>
+			<div class="control">
+				<input type="text" [(ngModel)]="selectedPlayer.name">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="label">Playing Number</div>
+			<div class="control">
+				<input type="text" [(ngModel)]="selectedPlayer.number">
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="button button-info" (click)="editPlayer()"><fa-icon icon="save"></fa-icon> Save</button>
+	</div>
+</modal>
+
+<modal name="gamesListModal" size="lg" [title]="'Load Game'">
+	<div class="modal-body">
+		<div class="table-header-buttons">
+			<button class="button button-info" (click)="popupService.open('newGameModal');popupService.close('gamesListModal');"><fa-icon icon="plus-circle"></fa-icon> New Game</button>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Home</th>
+					<th>Away</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let game of gamesService.getGames()">
+					<td>{{game.timestamp | date:'d/M/yyyy h:mm aa'}}</td>
+					<td>{{game.home.team.shortName}}</td>
+					<td>{{game.away.team.shortName}}</td>
+					<td>
+						<button class="button button-sm" (click)="scoreService.loadGame(game);popupService.close('gamesListModal')">Load</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</modal>
+
+
+<modal name="newGameModal" size="xl" [title]="'New Game'">
+	<form #newGameForm="ngForm" (ngSubmit)="newGame(newGameForm.value)">
+		<div class="modal-body">
+		{{newGameForm.controls['homeTeamPlayers[1]']}}
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<div class="label">Match Template</div>
+						<div class="control">
+							<select name="matchTemplate" ngModel>
+								<option *ngFor="let matchTemplate of scoreService.matchTemplates()" [ngValue]="matchTemplate">{{matchTemplate.name}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Number of Overs</div>
+						<div class="control">
+							<input type="number" name="maxOvers" [ngModel]="newGameForm.value.matchTemplate ? newGameForm.value.matchTemplate.maxOvers : 0">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Outright Available</div>
+						<div class="control control-toggle">
+							<input id="outrightAvailable" name="outrightAvailable" type="checkbox" [ngModel]="newGameForm.value.matchTemplate ? newGameForm.value.matchTemplate.outrightAvailable : false">
+							<label for="outrightAvailable" class="toggle"></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Remaining Overs Inherited</div>
+						<div class="control control-toggle">
+							<input id="oversCarryOver" name="oversCarryOver" type="checkbox" [ngModel]="newGameForm.value.matchTemplate ? newGameForm.value.matchTemplate.oversCarryOver : false">
+							<label for="oversCarryOver" class="toggle"></label>
+						</div>
+						<div class="description">
+							If the bowling team dismisses the batting team within the number of overs, they will inherit the remaining overs in the minus 4 overs for changeover
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Changeover Period</div>
+						<div class="control">
+							<input type="number" name="changeoverPeriod" [ngModel]="newGameForm.value.matchTemplate ? newGameForm.value.matchTemplate.changeoverPeriod : 4">
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<div class="label">Home Team</div>
+						<div class="control">
+							<select name="homeTeam" (ngModelChange)="teamsService.getTeamPlayers($event.id)" ngModel>
+								<option *ngFor="let team of teamsService.getTeams()" [disabled]="team == newGameForm.value.awayTeam" [ngValue]="team">{{team.shortName}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Players List</div>
+						<div class="control-stack">
+							<div class="control" ngModelGroup="homeTeamPlayers" *ngFor="let num of _.range(1, 12)">
+								<div class="control-prepend">{{num}}</div>
+								<search-select class="field field-full" ngModel [options]="newGameForm.value.homeTeam ? newGameForm.value.homeTeam.toPlayersDropdown(newGameForm.value.homeTeamPlayers) : []" [allowCustom]="true" startText="Select Player..." customText="New Player" [name]="num"></search-select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<div class="label">Away Team</div>
+						<div class="control">
+							<select name="awayTeam" (ngModelChange)="teamsService.getTeamPlayers($event.id)" ngModel>
+								<option *ngFor="let team of teamsService.getTeams()" [ngValue]="team" [disabled]="team == newGameForm.value.homeTeam">{{team.shortName}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Players List</div>
+						<div class="control-stack">
+							<div class="control" ngModelGroup="awayTeamPlayers" *ngFor="let num of _.range(1, 12)">
+								<div class="control-prepend">{{num}}</div>
+								<search-select class="field field-full" [options]="newGameForm.value.awayTeam ? newGameForm.value.awayTeam.toPlayersDropdown(newGameForm.value.awayTeamPlayers) : []" [allowCustom]="true" startText="Select Player..." customText="New Player" [name]="num" ngModel></search-select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="button button-info"><fa-icon icon="play"></fa-icon> Start Game</button>
+		</div>
+	</form>
+</modal>
+
+<modal name="newOverModal" size="md" [title]="'It\'s Over!'" [closeable]="false">
+	<form #newOverForm="ngForm" (ngSubmit)="newOver(newOverForm.value)">
+		<div class="modal-body">
+			<div class="form-group" *ngIf="scoreService.innings() != null">
+				<div class="label">Next Bowler</div>
+				<div class="control">
+					<select name="nextBowler" ngModel>
+						<option *ngFor="let player of scoreService.bowlingTeamPlayers()" [disabled]="scoreService.over() != null && player == scoreService.bowler()" [ngValue]="player">{{player.name}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="button button-info"><fa-icon icon="play"></fa-icon> Start Over</button>
+		</div>
+	</form>
+</modal>
+
+<modal name="newInningsModal" size="md" [title]="'Setup Innings'" [closeable]="false" *ngIf="scoreService.game() != null">
+	<form #newInningsForm="ngForm" (ngSubmit)="newInnings(newInningsForm.value)">
+		<div class="modal-body">
+			<div class="form-group">
+				<div class="label">Batting Team</div>
+				<div class="control">
+					<select name="battingTeam" ngModel>
+						<option value="home">{{scoreService.game().home.team.shortName}}</option>
+						<option value="away">{{scoreService.game().away.team.shortName}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group" *ngIf="newInningsForm.value.battingTeam">
+				<div class="label">Striking Batsman</div>
+				<div class="control">
+					<select name="strikingBatsman" ngModel>
+						<option *ngFor="let player of scoreService.game()[newInningsForm.value.battingTeam].players" [disabled]="player == newInningsForm.value.nonStrikingBatsman" [ngValue]="player">{{player.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group" *ngIf="newInningsForm.value.battingTeam">
+				<div class="label">Non-Striking Batsman</div>
+				<div class="control">
+					<select name="nonStrikingBatsman" ngModel>
+						<option *ngFor="let player of scoreService.game()[newInningsForm.value.battingTeam].players" [disabled]="player == newInningsForm.value.strikingBatsman" [ngValue]="player">{{player.name}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="button button-info"><fa-icon icon="play"></fa-icon> Start Innings</button>
+		</div>
+	</form>
+</modal>
+
+<modal name="wicketModal" size="md" [title]="'Howzat!'" *ngIf="scoreService.innings() != null">
+	<form #wicketForm="ngForm" (ngSubmit)="wicket(wicketForm.value)">
+		<div class="modal-body">
+			<p>Please fill in detail of the wicket</p>
+			<div class="form-group">
+				<div class="row">
+					<div [class.col-sm-12]="wicketForm.value.wicketHowOut != 'runout'"  [class.col-sm-6]="wicketForm.value.wicketHowOut == 'runout'">
+						<div class="form-group">
+							<div class="label">How Out</div>
+							<div class="control">
+								<select [ngModel]="'bowled'" name="howOut">
+									<option value="bowled">Bowled</option>
+									<option value="caught">Caught</option>
+									<option value="runout">Run Out</option>
+									<option value="stumped">Stumped</option>
+									<option value="hitwicket">Hit Wicket</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6" *ngIf="wicketForm.value.wicketHowOut == 'runout'">
+						<div class="form-group">
+							<div class="label">Additional Runs</div>
+							<div class="control">
+								<input type="number" ngModel name="additionalRuns" min="0" max="6">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" *ngIf="false && wicketForm.value.wicketHowOut != 'bowled' && wicketForm.value.wicketHowOut != 'hitwicket' && wicketForm.value.wicketHowOut != 'stumped'">
+				<div class="row">
+					<div [class.col-sm-12]="wicketForm.value.wicketHowOut != 'runout'"  [class.col-sm-6]="wicketForm.value.wicketHowOut == 'runout'">
+						<div class="form-group">
+							<div class="label">Fielder</div>
+							<div class="control">
+								<select ngModel name="wicketFielderId">
+									<option value="0">Not Sure</option>
+									<option *ngFor="let player of scoreService.bowlingTeamPlayers()" [ngValue]="player">{{player.name}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6" *ngIf="wicketForm.value.wicketHowOut == 'runout'">
+						<div class="form-group">
+							<div class="label">Assist Fielder</div>
+							<div class="control">
+								<select ngModel name="assistFielderId">
+									<option value="">N/A</option>
+									<option value="0">Not Sure</option>
+									<option *ngFor="let player of scoreService.bowlingTeamPlayers()" [ngValue]="player" [disabled]="player.id == wicketForm.value.wicketFielderId">{{player.name}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" *ngIf="wicketForm.value.wicketHowOut != 'bowled' && wicketForm.value.wicketHowOut != 'runout'">
+					<div class="label label-inline">Did Batsmen Cross?</div>
+					<div class="control control-toggle">
+						<input id="didBatsmanCross" name="didBatsmanCross" type="checkbox" ngModel value="1">
+						<label for="didBatsmanCross" class="toggle"></label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-sm-6" *ngIf="wicketForm.value.wicketHowOut == 'runout'">
+						<div class="form-group">
+							<div class="label">Batsman Out</div>
+							<div class="control">
+								<select ngModel name="batsmanOut">
+									<option *ngFor="let player of scoreService.batsmen()" [ngValue]="player">{{player.name}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div [class.col-sm-12]="wicketForm.value.wicketHowOut != 'runout'"  [class.col-sm-6]="wicketForm.value.wicketHowOut == 'runout'">
+						<div class="form-group">
+							<div class="label">New Batsman</div>
+							<div class="control">
+								<select ngModel name="nextBatsman">
+									<option *ngFor="let player of scoreService.availableBatsmen()" [ngValue]="player">{{player.name}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="button button-info"><fa-icon icon="arrow-right"></fa-icon> Send Em' In</button>
+		</div>
+	</form>
+</modal>
+
+<alert></alert>
+<loader></loader>

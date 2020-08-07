@@ -1,0 +1,36 @@
+<div class="toolbar" [class.toolbar-active]="toolbarActive">
+	<div class="burger" (click)="toolbarActive = !toolbarActive">Options</div>
+	<div class="menu" menu>
+		<div class="menu-item" menu-item>
+			<fa-icon icon="cog"></fa-icon> Game Options
+			<div class="menu-dropdown" menu-dropdown>
+				<div class="menu-dropdown-item" (click)="popupService.open('newGameModal')"><fa-icon icon="file"></fa-icon> New Game</div>
+				<div class="menu-dropdown-item" (click)="popupService.open('gamesListModal')"><fa-icon icon="folder-open"></fa-icon> Load Game</div>
+			</div>
+		</div>
+		<div #displayOptions class="menu-item" menu-item *ngIf="false">
+			<fa-icon icon="desktop"></fa-icon> Display Options
+			<div class="menu-dropdown" menu-dropdown>
+				<div #displayOptionSummary class="menu-dropdown-item">Summary</div>
+				<div #displayOptionScorecard class="menu-dropdown-item">Scorecard</div>
+				<div #displayOptionSponsors class="menu-dropdown-item">Sponsors Loop</div>
+				<div #displayOptionTime class="menu-dropdown-item">Current Time</div>
+				<div #displayOptionLogo class="menu-dropdown-item">Logo Placeholder</div>
+				<div class="menu-dropdown-divider"></div>
+				<div class="menu-dropdown-item">Animation Settings</div>
+			</div>
+		</div>
+		<div class="menu-item" menu-item>
+			<fa-icon icon="wrench"></fa-icon> Advanced
+			<div class="menu-dropdown" menu-dropdown>
+				<div class="menu-dropdown-item" (click)="popupService.open('teamListModal'); dropdownService.closeAllDropdowns()">Manage Teams</div>
+				<div class="menu-dropdown-item" *ngIf="false">Manual Override</div>
+				<div class="menu-dropdown-item" (click)="scoreService.changeStrike()">Change Strike</div>
+				<div class="menu-dropdown-item">Reset Cache</div>
+			</div>
+		</div>
+		<div class="menu-item menu-item-right" (click)="undoBall()" menu-item>
+			<fa-icon icon="undo"></fa-icon> Undo
+		</div>
+	</div>
+</div>

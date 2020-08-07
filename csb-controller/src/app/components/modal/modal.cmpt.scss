@@ -1,0 +1,105 @@
+@import './../../../variables.scss';
+
+.modal-wrapper {
+	position:fixed;
+	background-color:rgba(0,0,0,0.6);
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	visibility:hidden;
+	z-index:-1;
+
+	&.modal-active {
+		visibility:visible;
+		z-index:81;
+	}
+
+	.modal {
+		width:100%;
+		max-width:600px;
+		margin:0 auto;
+		border-radius:4px;
+		position:relative;
+		top:120px;
+		background-color:#FFFFFF;
+		border:2px solid $secondary-grey;
+
+		.modal-header {
+			display:flex;
+			user-select:none;
+			padding:8px 12px;
+			text-transform:uppercase;
+			letter-spacing:1px;
+			background-color:$secondary-grey;
+			color:$dark-text;
+
+			.modal-title {
+				flex:1 1 auto;
+			}
+
+			.modal-close {
+				flex:0 0 auto;
+				opacity:0.6;
+				font-size:14px;
+				transition:opacity 0.2s;
+				cursor:pointer;
+
+				&:hover {
+					opacity:1;
+				}
+			}
+		}
+
+		::ng-deep {
+			.modal-body {
+				color:#666666;
+				padding:12px 12px 0 12px;
+				font-size:14px;
+				font-family:Roboto;
+				line-height:20px;
+
+				.table-header-buttons {
+					margin-bottom:12px;
+				}
+
+				& > .table {
+					margin-left:-12px;
+					margin-right:-12px;
+					width:calc(100% + 24px);
+				}
+
+				& > .table:first-child {
+					margin-top:-12px;
+				}
+			}
+
+			.modal-footer {
+				text-align:right;
+				padding:12px 0;
+				margin:12px 12px 0 12px;
+				border-top:1px solid $secondary-grey;
+
+				button {
+					margin-left:10px;
+					
+					fa-icon {
+						margin-right:4px;
+					}
+				}
+			}
+		}
+	}
+
+	&.modal-xl .modal {
+		max-width:1000px;
+	}
+
+	&.modal-lg .modal {
+		max-width:800px;
+	}
+
+	&.model-sm .modal {
+		max-width:400px;
+	}
+}

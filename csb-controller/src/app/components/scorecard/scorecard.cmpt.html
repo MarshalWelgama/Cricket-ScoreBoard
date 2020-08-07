@@ -1,0 +1,36 @@
+<div class="section-title">Scorecard</div>
+<div class="well">
+	<div class="well-header">1st Innings</div>
+	<div class="well-body">
+		<table class="table" *ngIf="scoreService.innings() != null">
+			<tr>
+				<th>Batsman</th>
+				<th>4s</th>
+				<th>6s</th>
+				<th>Balls</th>
+				<th>Runs</th>
+			</tr>
+			<tr *ngFor="let batsman of scoreService.innings().batsmen">
+				<td>
+					{{batsman.name}} <span class="batting-status">{{batsman.status()}}</span>
+				</td>
+				<td>{{batsman.fours}}</td>
+				<td>{{batsman.sixes}}</td>
+				<td>{{batsman.balls}}</td>
+				<td>{{batsman.runs}}</td>
+			</tr>
+			<tr>
+				<th colspan="2">Bowler</th>
+				<th>Wickets</th>
+				<th>Overs</th>
+				<th>Runs</th>
+			</tr>
+			<tr *ngFor="let bowler of actualBowlers()">
+				<td colspan="2">{{bowler.name}}</td>
+				<td>{{bowler.wickets}}</td>
+				<td>{{scoreService.formatOver(bowler.overs)}}</td>
+				<td>{{bowler.runs}}</td>
+			</tr>
+		</table>
+	</div>
+</div>

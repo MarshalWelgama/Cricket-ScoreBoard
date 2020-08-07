@@ -1,0 +1,39 @@
+<div class="mt-4">
+	<div class="section-title">Summary</div>
+	<div class="summary">
+		<div class="well">
+			<div class="well-body">
+				<div class="batsmen" *ngIf="scoreService.innings() != null">
+					<div class="summary-stat" *ngFor="let batsman of scoreService.batsmen()">
+						<div class="stat-name">{{batsman.name}}{{batsman.onStrike ? '*' : ''}}</div>
+						<div class="stat-figure">{{batsman.runs}} ({{batsman.balls}})</div>
+					</div>
+				</div>
+				<div class="bowler" *ngIf="scoreService.over() != null">
+					<div class="summary-stat">
+						<div class="stat-name">{{scoreService.bowler().name}}</div>
+						<div class="stat-figure">{{scoreService.bowler().wickets}}/{{scoreService.bowler().runs}} ({{scoreService.formatOver(scoreService.bowler().overs)}})</div>
+					</div>
+				</div>
+				<div class="extras">
+					<div class="summary-stat" *ngIf="scoreService.innings() != null">
+						<div class="stat-name">Extras {{scoreService.innings().totals.extras}}</div>
+						<div class="stat-figure">
+							<div class="significant-stat">{{scoreService.innings().totals.wickets}}/{{scoreService.innings().totals.runs}} ({{scoreService.formatOver(scoreService.innings().totals.overs)}})</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="well" *ngIf="scoreService.over() != null">
+			<div class="well-header">Current Over</div>
+			<div class="well-body">
+				<div class="summary-balls"><!-- [class.summary-full-over]="scoreService.over().balls.length >= 6" -->
+					<div class="summary-ball" *ngFor="let ball of scoreService.over().balls">
+						<div class="summary-ball-figure">{{ball.display()}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

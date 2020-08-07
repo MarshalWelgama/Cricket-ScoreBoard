@@ -1,0 +1,14 @@
+:host {
+	display:none;
+	background-color:rgba(0,0,0,0.6);
+	background-image:url(/assets/loader.svg);
+	background-repeat:no-repeat;
+	background-position:center center;
+	background-size:100px 100px;
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index:100;
+}

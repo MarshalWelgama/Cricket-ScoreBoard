@@ -1,0 +1,10 @@
+<div class="section-title">Overs Summary</div>
+<div class="well" *ngIf="scoreService.innings() != null && scoreService.innings().overs.length > 0">
+	<div class="overs well-body" [class.overs-wrap]="scoreService.innings().overs.length > 42" *ngIf="scoreService.innings() != null">
+		{{reset()}}
+		<div class="over" *ngFor="let over of scoreService.innings().overs; let num = index">
+			<div class="over-num" [class.over-wicket]="over.wickets > 0">{{num + 1}}</div>
+			<div class="over-stats">{{addWickets(over.wickets)}}/{{addRuns(over.runs)}}</div>
+		</div>
+	</div>
+</div>

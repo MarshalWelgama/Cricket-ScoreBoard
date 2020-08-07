@@ -1,0 +1,15 @@
+.button {
+	padding:16px;
+}
+
+@media only screen and (max-height:1000px) {
+	.button {
+		padding:12px;
+	}
+}
+
+@media only screen and (max-height:850px) {
+	.button {
+		padding:8px;
+	}
+}

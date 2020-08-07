@@ -1,0 +1,221 @@
+@import './../../../variables.scss';
+
+.preview {
+	position:relative;
+	padding-left:24px;
+
+	.preview-text {
+		transform:rotate(-90deg);
+		transform-origin:right top 0;
+		text-transform:uppercase;
+		width:64px;
+		font-size:12px;
+		line-height:24px;
+		color:$light-text;
+		background-color:$error;
+		text-align:center;
+		right:100%;
+		position:absolute;
+	}
+	.board {
+		height:64px;
+		width:288px;
+		background-color:#000000;
+
+		$line-height: 18px;
+		$board-width: 288px;
+		$board-padding-top: 9px;
+		$board-padding-side: 6px;
+		$board-font-size: 10px;
+		$highlight-color: #FCDF00;
+		$max-balls: ($board-width * 0.5) / 16px;
+		.board-container {
+			width:100%;
+			height:100%;
+			font-size:$board-font-size;
+			z-index:20;
+			overflow:hidden;
+			box-sizing:border-box;
+			color:#FFFFFF;
+			text-transform:uppercase;
+			font-family:Roboto Mono;
+			position:relative;
+			line-height:$line-height;
+
+			.board-mode {
+				height:100%;
+				width:100%;
+
+				&.board-mode-pre-game {
+					text-align:center;
+
+					img {
+						top:50%;
+						position:relative;
+						transform:translateY(-50%);
+					}
+				}
+
+				&.board-mode-pre-innings, &.board-mode-post-innings {
+					text-align:center;
+
+					> span {
+						top:50%;
+						display:block;
+						position:relative;
+						color:$secondary-color;
+						font-size:16px;
+						transform:translateY(-50%);
+					}
+				}
+
+				.board-batsmen {
+					position:absolute;
+					top:$board-padding-top;
+					display:inline-block;
+					left:$board-padding-side;
+
+					.board-batsman {
+						display:block;
+						position:relative;
+
+						&.board-batsman-on-strike {
+							color:$highlight-color;
+						}
+
+						&.board-batsman-out {
+							color:#CCCCCC;
+
+							&:after {
+								content:'';
+								border-top:1px solid #CCCCCC;
+								top:8px;
+								left:0;
+								width:100%;
+								position:absolute;
+								height:0;
+							}
+						}
+
+						.board-batsman-name {
+							display:inline-block;
+						}
+
+						.board-batsman-score {
+							display:inline-block;
+						}
+
+						.board-batsman-balls {
+							display:inline-block;
+						}
+					}
+				}
+
+				.board-game-info {
+					position:absolute;
+					top:$line-height * 2 + $board-padding-top;
+					left:$board-padding-side;
+					width:40%;
+
+					.board-game-message {
+						width:100%;
+						display:none;
+
+						&.board-game-message-visible {
+							display:flex;
+						}
+
+						.board-message-title {
+							display:inline-block;
+							flex:1 1 auto;
+						}
+						.board-message-figure {
+							flex:1 1 auto;
+							text-align:right;
+							display:inline-block;
+						}
+					}
+				}
+
+				.board-team-score {
+					position:absolute;
+					font-size:12px;
+					top:$board-padding-top - 1;
+					right:$board-padding-side;
+				}
+
+				.board-bowler {
+					position:absolute;
+					top:$line-height + $board-padding-top + 1;
+					right:$board-padding-side;
+
+					.board-bowler-name {
+						display:inline-block;
+					}
+
+					.board-bowler-stats {
+						display:inline-block;
+					}
+
+					.board-bowler-overs {
+						display:inline-block;
+					}
+				}
+
+				.board-over {
+					position:absolute;
+					top:$line-height * 2 + $board-padding-top;
+					right:$board-padding-side;
+					max-width:50%;
+					min-width:16px * 6;
+					display:flex;
+					flex-direction:row;
+					justify-content:flex-start;
+					text-align:left;
+					font-size:0;
+					transition:width 0.2s;
+
+					&.board-long-over {
+						width:auto;
+					}
+
+					&.board-extra-long-over {
+						width:50%;
+						max-width:100%;
+					}
+
+					&.board-stupidly-long-over {
+						width:60%;
+						max-width:60%;
+					}
+
+					.board-over-ball {
+						vertical-align:middle;
+						font-size:$board-font-size;
+						padding:0 2px;
+						min-width:12px;
+						text-align:center;
+
+						&:first-child:nth-last-child(n + #{$max-balls}), &:first-child:nth-last-child(n + #{$max-balls}) ~ div {
+							flex:1 1 auto;
+							width:auto;
+							padding:0;
+						}
+
+						&.board-over-ball-dot {
+							font-size:24px;
+							line-height:16px;
+							padding-bottom:2px;
+							vertical-align:top;
+							width:12px;
+						}
+
+						&.board-over-ball-wicket {
+							color:$highlight-color;
+						}
+					}
+				}
+			}
+		}
+	}
+}

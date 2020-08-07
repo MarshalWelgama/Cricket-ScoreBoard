@@ -1,0 +1,16 @@
+<div class="alert-wrapper" [class.alert-active]="alertOpen">
+	<div #alertContainer class="alert alert-{{alert.type}}" animates>
+		<div class="alert-header">
+			<div class="alert-title"><fa-icon [icon]="alertIcons[alert.type]"></fa-icon>{{alert.title}}</div>
+			<div class="alert-close" *ngIf="alert.closable" (click)="close()">
+				<fa-icon icon="times-circle"></fa-icon>
+			</div>
+		</div>
+		<div class="alert-body">
+			{{alert.message}}
+		</div>
+		<div class="alert-footer">
+			<button *ngFor="let button of alert.controls" class="button button-{{button.color}}" (click)="button.onClick(this, $event)"><fa-icon *ngIf="button.icon !== false" [icon]="button.icon"></fa-icon>{{button.text}}</button>
+		</div>
+	</div>
+</div>

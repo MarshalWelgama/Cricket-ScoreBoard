@@ -1,0 +1,116 @@
+@import './../../../variables.scss';
+
+.alert-wrapper {
+	position:fixed;
+	background-color:rgba(0,0,0,0.6);
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	visibility:hidden;
+	z-index:-1;
+
+	&.alert-active {
+		z-index:81;
+		visibility:visible;
+	}
+
+	.alert {
+		width:100%;
+		max-width:600px;
+		margin:0 auto;
+		border-radius:4px;
+		position:relative;
+		top:120px;
+		background-color:#FFFFFF;
+		border:2px solid $secondary-grey;
+
+		.alert-header {
+			display:flex;
+			padding:8px 12px;
+			text-transform:uppercase;
+			letter-spacing:1px;
+			background-color:$secondary-grey;
+			color:$dark-text;
+
+			.alert-title {
+				flex:1 1 auto;
+
+				fa-icon {
+					margin-right:4px;
+				}
+			}
+
+			.alert-close {
+				flex:0 0 auto;
+				opacity:0.6;
+				font-size:14px;
+				transition:opacity 0.2s;
+				cursor:pointer;
+
+				&:hover {
+					opacity:1;
+				}
+			}
+		}
+
+		&.alert-error {
+			border-color:$error;
+
+			.alert-header {
+				color:$light-text;
+				background-color:$error;
+			}
+		}
+
+		&.alert-warning {
+			border-color:$warning;
+
+			.alert-header {
+				color:$light-text;
+				background-color:$warning;
+			}
+		}
+
+		&.alert-success {
+			border-color:$success;
+
+			.alert-header {
+				color:$light-text;
+				background-color:$success;
+			}
+		}
+
+		&.alert-info {
+			border-color:$info;
+
+			.alert-header {
+				color:$light-text;
+				background-color:$info;
+			}
+		}
+
+		.alert-body {
+			color:#666666;
+			padding:12px;
+			font-size:14px;
+			font-family:Roboto;
+			line-height:20px;
+		}
+
+		.alert-footer {
+			text-align:right;
+			padding:12px 0;
+			margin:0 12px;
+			border-top:1px solid $secondary-grey;
+
+			button {
+				margin-left:10px;
+				
+				fa-icon {
+					margin-right:4px;
+				}
+			}
+		}
+	}
+}

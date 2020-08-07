@@ -1,0 +1,11 @@
+<div #modalWrapper class="modal-wrapper modal-{{size}}" [class.modal-active]="modalOpen" (click)="wrapperClick($event)">
+	<div #modal class="modal modal-{{modalType}}">
+		<div class="modal-header">
+			<div class="modal-title">{{title}}</div>
+			<div class="modal-close" *ngIf="closable" (click)="close()">
+				<fa-icon icon="times-circle"></fa-icon>
+			</div>
+		</div>
+		<ng-content></ng-content>
+	</div>
+</div>

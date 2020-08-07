@@ -1,0 +1,97 @@
+@import './../../../variables.scss';
+
+.summary {
+	font-size:16px;
+
+	.batsmen {
+		margin-bottom:16px;
+	}
+
+	.bowler {
+		margin-bottom:16px;
+	}
+
+	.summary-stat {
+		display:flex;
+		line-height:28px;
+		margin:4px 0;
+
+		.stat-name {
+			flex:1 1 auto;
+		}
+
+		.stat-figure {
+			flex:1 1 auto;
+			text-align:right;
+
+			.significant-stat {
+				font-size:22px;
+			}
+		}
+	}
+
+	.summary-balls {
+		display:grid;
+		grid-gap:8px;
+		grid-template-columns:repeat(auto-fit, minmax(30px, 0.1fr));
+
+		&.summary-full-over {
+			justify-content:space-evenly;
+		}
+
+
+		.summary-ball {
+			flex:1 1 auto;
+			border:2px solid $primary-grey;
+			text-align:center;
+			padding-top:calc(100% - 4px);
+			position:relative;
+			border-radius:50%;
+
+			.summary-ball-figure {
+				position:absolute;
+				top:50%;
+				left:0;
+				right:0;
+				transform:translateY(-50%);
+				text-align:center;
+			}
+		}
+	}
+}
+
+@media only screen and (max-height:900px) {
+	.summary {
+		.batsmen {
+			margin-bottom:8px;
+		}
+
+		.bowler {
+			margin-bottom:8px;
+		}
+	}
+}
+
+@media only screen and (max-height:800px) {
+	.summary {
+		font-size:14px;
+
+		.batsmen {
+			margin-bottom:0;
+		}
+
+		.bowler {
+			margin-bottom:0;
+		}
+
+		.summary-stat {
+			line-height:22px;
+
+			.stat-figure {
+				.significant-stat {
+					font-size:18px;
+				}
+			}
+		}
+	}
+}

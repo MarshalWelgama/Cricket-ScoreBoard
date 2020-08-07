@@ -1,0 +1,64 @@
+@import './../../../variables.scss';
+
+.well .well-body {
+	border-bottom-width:1px;
+}
+
+.overs {
+	column-count:1;
+	column-gap:0;
+	padding:0;
+	width:50%;
+
+	&.overs-wrap {
+		column-count:2;
+		width:100%;
+	}
+
+	.over {
+		display:flex;
+		break-inside:avoid;
+
+		.over-num {
+			flex:0 0 auto;
+			width:32px;
+			text-align:center;
+			color:$light-text;
+			background-color:$primary-color;
+			padding:4px 0;
+			position:relative;
+			border-right:2px solid $primary-color;
+			
+			&.over-wicket {
+				color:$secondary-color;
+			}
+		}
+
+		.over-stats {
+			flex:1 1 auto;
+			padding:4px 8px;
+			text-align:right;
+			border-bottom:1px solid $primary-color;
+		}
+
+		&:last-child {
+			border-bottom:none;
+		}
+	}
+}
+
+@media only screen and (max-height:800px) {
+	.overs {
+		font-size:14px;
+
+		.over {
+			.over-num {
+				padding:2px 0;
+			}
+
+			.over-stats {
+				padding:2px 6px;
+			}
+		}
+	}
+}

@@ -1,0 +1,68 @@
+<div class="preview">
+	<div class="preview-text">Preview</div>
+	<div class="board">
+		<div class="board-container">
+			<div class="board-mode board-mode-pre-game" *ngIf="scoreService.game() == null && scoreService.innings() == null">
+				<img src="/assets/placeholder.png">
+			</div>
+			<div class="board-mode board-mode-pre-innings" *ngIf="scoreService.game() != null && scoreService.innings() == null">
+				<span>{{scoreService.game().home.team.name}} vs {{scoreService.game().away.team.name}}</span>
+			</div>
+			<div class="board-mode board-mode-post-innings" *ngIf="scoreService.game() != null && scoreService.innings() != null && scoreService.innings().status == 'postInnings'">
+				<span>{{scoreService.battingTeam().name}} {{scoreService.innings().wickets == 10 ? 'All Out ' : scoreService.innings().wickets + '/'}}{{scoreService.innings().runs}}</span>
+			</div>
+			<div class="board-mode board-mode-peri-game" *ngIf="scoreService.game() != null && scoreService.innings() != null">
+				<div class="board-batsmen" *ngIf="scoreService.batsmen()">
+					<div class="board-batsman" *ngFor="let batsman of scoreService.batsmen()" [class.board-batsman-on-strike]="batsman.onStrike === true" [class.board-batsman-out]="batsman.out">
+						<div class="board-batsman-name">
+							{{batsman.shortName}}
+						</div>
+						<div class="board-batsman-score">
+							{{batsman.runs}}
+						</div>
+						<div class="board-batsman-balls">
+							({{batsman.balls}})
+						</div>
+					</div>
+				</div>
+				<div class="board-game-info" #messages>
+					<div class="board-game-message" style="display:block">
+						<div class="board-message-title">Time</div>
+						<div class="board-message-figure">{{time | date:'h:mm aa'}}</div>
+					</div>
+					<div class="board-game-message" *ngIf="scoreService.innings().runs > 0">
+						<div class="board-message-title">Cur R.Rate</div>
+						<div class="board-message-figure">{{calculateCurrentRunRate()}}</div>
+					</div>
+					<div class="board-game-message" *ngIf="scoreService.innings().target !== false">
+						<div class="board-message-title">Req R.Rate</div>
+						<div class="board-message-figure">{{calculateRequiredRunRate()}}</div>
+					</div>
+					<div class="board-game-message" *ngIf="scoreService.innings().target !== false">
+						<div class="board-message-title">Target</div>
+						<div class="board-message-figure">{{scoreService.innings().target}}</div>
+					</div>
+				</div>
+				<div class="board-team-score">
+					{{scoreService.battingTeam().miniName}} {{scoreService.innings().totals.wickets}}/{{scoreService.innings().totals.runs}} ({{scoreService.formatOver(scoreService.innings().totals.overs)}})
+				</div>
+				<div class="board-bowler" *ngIf="scoreService.over() != null">
+					<div class="board-bowler-name">
+						{{scoreService.bowler().shortName}}
+					</div>
+					<div class="board-bowler-stats">
+						{{scoreService.bowler().wickets}}/{{scoreService.bowler().runs}}
+					</div>
+					<div class="board-bowler-overs">
+						({{scoreService.formatOver(scoreService.bowler().overs)}})
+					</div>
+				</div>
+				<div class="board-over" [class.board-long-over]="scoreService.over().balls.length > 6"  [class.board-extra-long-over]="scoreService.over().balls.length >= 9" [class.board-stupidly-long-over]="scoreService.over().balls.length > 11" *ngIf="scoreService.over() != null">
+					<div *ngFor="let ball of scoreService.over().balls" class="board-over-ball" [class.board-over-ball-dot]="ball.runs == 0 && ball.wicket === false" [class.board-over-ball-wicket]="ball.wicket !== false">
+						{{ball.display()}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

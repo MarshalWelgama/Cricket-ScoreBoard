@@ -1,0 +1,470 @@
+@import './../variables.scss';
+
+::ng-deep {
+	.section {
+		max-height:100%;
+		overflow-y:auto;
+
+		.section-title {
+			font-size:22px;
+			letter-spacing:1px;
+			margin-bottom:8px;
+			margin-left:8px;
+			color:$dark-text;
+			display:inline-block;
+		}
+	}
+
+	.well {
+		position:relative;
+
+		.well-header {
+			border-top-left-radius:4px;
+			border-top-right-radius:4px;
+			background-color:$primary-color;
+			color:$light-text;
+			padding:8px 12px;
+			text-transform:uppercase;
+			letter-spacing:1px;
+			position:relative;
+		}
+
+		.well-body {
+			padding:12px;
+			border:2px solid $primary-color;
+			border-top-left-radius:4px;
+			border-top-right-radius:4px;
+			border-bottom-left-radius:4px;
+			border-bottom-right-radius:4px;
+			overflow:hidden;
+			position:relative;
+			background-color:#FFFFFF;
+
+			.table-header-buttons {
+				margin-bottom:12px;
+			}
+
+			& > .table {
+				margin-left:-12px;
+				margin-right:-12px;
+				width:calc(100% + 24px);
+			}
+
+			& > .table:first-child {
+				margin-top:-12px;
+			}
+
+			& > .table:last-child {
+				margin-bottom:-12px;
+			}
+		}
+
+		.well-header + .well-body {
+			border-top:none;
+			border-top-left-radius:0px;
+			border-top-right-radius:0px;
+		}
+
+		& + .well {
+			margin-top:20px;
+		}
+	}
+
+	.form-group {
+		width:100%;
+		display:block;
+
+		.label {
+			font-size:16px;
+			margin-bottom:4px;
+			color:$dark-text;
+
+			.label-example {
+				line-height:20px;
+				font-size:12px;
+				vertical-align:bottom;
+				font-weight:700;
+				user-select:none;
+				color:lighten($dark-text, 20%);
+
+				&:before {
+					content:"eg. ";
+				}
+			}
+		}
+
+		.control {
+			width:100%;
+			display:flex;
+
+			input, select, textarea, search-select {
+				width:100%;
+				padding:8px 10px;
+				box-shadow:none;
+				border:1px solid darken($secondary-grey, 10%);
+				border-radius:3px;
+				font-size:14px;
+				color:$dark-text;
+				box-sizing:border-box;
+				outline:none;
+				cursor:pointer;
+				transition:background-color 0.1s, border-color 0.1s;
+
+				&:focus {
+					box-shadow:none;
+					border-color:darken($secondary-grey, 20%);
+					background-color:$tertiary-grey;
+				}
+			}
+
+			search-select {
+				padding:0;
+			}
+
+			select {
+				option {
+					padding:6px 10px;
+					font-size:14px;
+				}
+			}
+
+			.control-prepend {
+				min-width:34px;
+				background-color:$primary-grey;
+				color:$light-text;
+				flex:0 0 auto;
+				user-select:none;
+				line-height:34px;
+				font-size:14px;
+				vertical-align:middle;
+				text-align:center;
+				border-top-left-radius:3px;
+				border-bottom-left-radius:3px;
+
+				& + input, & + select, & + textarea, & + search-select {
+					border-top-left-radius:0 !important;
+					border-bottom-left-radius:0 !important;
+					border-left:none;
+				}
+			}
+
+			&.control-toggle {
+				line-height:10px;
+
+				input {
+					display:none;
+				}
+
+				.toggle {
+					height:34px;
+					border-radius:3px;
+					width:68px;
+					display:inline-block;
+					border:2px solid darken($secondary-grey, 10%);
+					position:relative;
+					cursor:pointer;
+					transition:border-color ease-out 0.1s;
+
+					&:before {
+						content:'';
+						position:absolute;
+						top:2px;
+						left:2px;
+						border-radius:2px;
+						bottom:2px;
+						right:50%;
+						transition:all ease-out 0.1s;
+						background-color:darken($secondary-grey, 10%);
+					}
+				}
+
+				input:checked + .toggle {
+					border-color:darken($secondary-grey, 30%);
+
+					&:before {
+						left:50%;
+						right:2px;
+						background-color:darken($secondary-grey, 30%);
+					}
+				}
+			}
+		}
+
+		.control-stack {
+			.control {
+				.control-prepend {
+					border-radius:0;
+					border-top:1px solid lighten($primary-grey, 10%);
+				}
+
+				input, select, textarea, search-select {
+					border-radius:0;
+				}
+
+				&:first-child {
+					input, select, textarea, search-select {
+						border-top-right-radius:3px;
+						border-top-left-radius:3px;
+					}
+
+					.control-prepend {
+						border-top:none;
+						border-top-left-radius:3px;
+					}
+				}
+
+				&:last-child {
+					input, select, textarea, search-select {
+						border-bottom-right-radius:3px;
+						border-bottom-left-radius:3px;
+					}
+					.control-prepend {
+						border-bottom-left-radius:3px;
+					}
+				}
+
+				&:not(:last-child) {
+					input, select, textarea, search-select {
+						border-bottom:none;
+					}
+				}
+			}
+		}
+		
+		.description {
+			font-size:12px;
+			line-height:14px;
+			margin-top:6px;
+			color:lighten($primary-grey, 20%);
+
+			&:before {
+				content:'\f05a';
+				font-family:FontAwesome;
+			}
+		}
+
+		& + .form-group {
+			margin-top:16px;
+		}
+	}
+
+	.button {
+		background-color:$secondary-grey;
+		padding:6px 12px;
+		font-size:12px;
+		text-transform:uppercase;
+		border-radius:2px;
+		box-sizing:border-box;
+		line-height:18px;
+		outline:none;
+		user-select:none;
+		letter-spacing:1px;
+		border:1px solid darken($secondary-grey, 6%);
+		border-bottom:3px solid darken($secondary-grey, 6%);
+		cursor:pointer;
+		vertical-align:top;
+		color:$dark-text;
+		position:relative;
+		transition:background-color 0.2s, border-color 0.2s;
+
+		&:hover {
+			background-color:darken($secondary-grey, 4%);
+			border-color:darken($secondary-grey, 8%);
+		}
+
+		&.button-success {
+			border-color:darken($success, 6%);
+			background-color:$success;
+			color:$light-text;
+
+			&:hover {
+				background-color:darken($success, 4%);
+				border-color:darken($success, 8%);
+			}
+		}
+
+		&.button-warning {
+			border-color:darken($warning, 6%);
+			background-color:$warning;
+			color:$light-text;
+
+			&:hover {
+				background-color:darken($warning, 4%);
+				border-color:darken($warning, 8%);
+			}
+		}
+
+		&.button-error {
+			border-color:darken($error, 6%);
+			background-color:$error;
+			color:$light-text;
+
+			&:hover {
+				background-color:darken($error, 4%);
+				border-color:darken($error, 8%);
+			}
+		}
+
+		&.button-info {
+			border-color:darken($info, 6%);
+			background-color:$info;
+			color:$light-text;
+
+			&:hover {
+				background-color:darken($info, 4%);
+				border-color:darken($info, 8%);
+			}
+		}
+
+
+		&:active {
+			border-bottom-width:1px;
+			line-height:20px;
+		}
+	}
+
+	.table {
+		width:100%;
+		border-collapse:collapse;
+
+		thead, tbody {
+			th {
+				background-color:$primary-grey;
+				color:$light-text;
+				text-transform:uppercase;
+				letter-spacing:1px;
+				font-weight:500;
+				font-size:12px;
+				text-align:left;
+				padding:10px 12px;
+			}
+		}
+		tbody {
+			td {
+				margin:0;
+				padding:10px 12px;
+				font-size:16px;
+
+				&.actions {
+					text-align:right;
+
+					a {
+						margin-left:10px;
+					}
+				}
+			}
+
+			tr:nth-child(even) {
+				td {
+					background-color:$tertiary-grey;
+				}
+			}
+		}
+	}
+
+	a {
+		cursor:pointer;
+	}
+
+	.button-group {
+		display:grid;
+		grid-template-columns:repeat(auto-fit, minmax(52px, 1fr));
+		grid-gap:8px;
+
+		.button {
+			padding-left:0;
+			padding-right:0;
+			text-align:center;
+		}
+
+		&.button-group-halves {
+			grid-template-columns:repeat(auto-fit, minmax(164px, 1fr));
+		}
+	}
+
+	@media only screen and (min-width:1700px) {
+		.button-group {
+			grid-template-columns:repeat(auto-fit, minmax(40px, 1fr));
+			grid-gap:4px;
+
+			&.button-group-halves {
+				grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+			}
+		}
+	}
+
+	@media only screen and (max-width:1024px) {
+		.button-group {
+			grid-template-columns:repeat(auto-fit, minmax(40px, 1fr));
+			grid-gap:4px;
+
+			&.button-group-halves {
+				grid-template-columns:repeat(auto-fit, minmax(138px, 1fr));
+			}
+		}
+	}
+
+	@media only screen and (max-height:860px) {
+		.well {
+			.well-header {
+				font-size:14px;
+				padding:6px 12px;
+			}
+		}
+	}
+
+	@media only screen and (max-height:800px) {
+		.section {
+			.section-title {
+				font-size:18px;
+			}
+		}
+	}
+}
+
+.header {
+	display:flex;
+
+	toolbar {
+		flex:1 1 auto;
+	}
+
+	preview {
+		flex:0 0 auto;
+	}
+}
+
+.main {
+	z-index:10;
+	overflow-x:hidden;
+	padding:0 12px;
+	height:calc(100vh - 64px);
+	box-sizing:border-box;
+
+	::ng-deep * {
+		z-index:10;
+
+		.highlight, .highlight * {
+			z-index:12;
+		}
+		.highlight:before {
+			background-color:rgba(0,0,0,0.6);
+			position:fixed;
+			top:0;
+			right:0;
+			left:0;
+			z-index:11;
+			bottom:0;
+			content:'';
+		}
+	}
+
+	.row {
+		height:100%;
+
+		.section {
+			padding-top:16px;
+			padding-bottom:16px;
+		}
+	}
+}

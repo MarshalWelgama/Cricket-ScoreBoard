@@ -1,0 +1,29 @@
+<div class="section-title">Controls</div>
+<div class="well" [class.highlight]="selectingRuns">
+	<div class="well-header">{{selectingRuns ? '' : 'Batsman '}}Runs</div>
+	<div class="well-body">
+		<div class="button-group button-group-sixths">
+			<button class="button" [disabled]="processing" *ngFor="let num of _.range(1, 7)" (click)="selectRuns(num)">{{num}}</button>
+		</div>
+	</div>
+</div>
+<div class="well">
+	<div class="well-header">Extras</div>
+	<div class="well-body">
+		<div class="button-group button-group-halves">
+			<button class="button" [disabled]="processing" (click)="addExtras('wides')">Wide</button>
+			<button class="button" [disabled]="processing" (click)="addExtras('noBalls')">No Ball</button>
+			<button class="button" [disabled]="processing" (click)="addExtras('legByes')">Leg Bye</button>
+			<button class="button" [disabled]="processing" (click)="addExtras('byes')">Bye</button>
+		</div>
+	</div>
+</div>
+<div class="well">
+	<div class="well-header">Other</div>
+	<div class="well-body">
+		<div class="button-group button-group-halves">
+			<button class="button" [disabled]="processing" (click)="addBatsmanRun(0)">Dot Ball</button>
+			<button class="button" [disabled]="processing" (click)="popupService.open('wicketModal')">Wicket</button>	
+		</div>
+	</div>
+</div>

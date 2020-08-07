@@ -1,0 +1,34 @@
+<div class="search-select-container" [class.open]="open" #container>
+	<div (click)="toggleDropdown()" *ngIf="isCustom === false">
+		<div class="search-select-selected" [class.placeholder]="!selectedOption">
+			{{selectedOption ? selectedOption.text : startText}}
+		</div>
+		<div class="search-select-arrow">
+			<fa-icon icon="angle-down"></fa-icon>
+		</div>
+	</div>
+	<div *ngIf="isCustom === true">
+		<div class="search-select-custom">
+			<input type="text" #custom placeholder="Start Typing..." (keyup)="setCustomName($event)">
+		</div>
+		<div (click)="toggleDropdown()" class="search-select-arrow">
+			<fa-icon icon="angle-down"></fa-icon>
+		</div>
+	</div>
+	<div class="search-select-dropdown" >
+		<div class="search-select-search">
+			<input type="text" #search value="" (keyup) ="checkFilteredOptions()" placeholder="Start Typing...">
+		</div>
+		<div class="search-select-options">
+			<div class="search-select-option" (click)="selectCustom()" *ngIf="allowCustom === true">
+				{{customText}}
+			</div>
+			<div class="search-select-option" (click)="selectOption(option.id)" *ngFor="let option of filteredOptions">
+				{{option.text}}
+			</div>
+			<div class="search-select-option" *ngIf="filteredOptions && filteredOptions.length == 0">
+				No Options Found
+			</div>
+		</div>
+	</div>
+</div>

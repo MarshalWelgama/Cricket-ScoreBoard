@@ -1,0 +1,96 @@
+{
+  "dc0d36a5-4804-4391-a2bf-ea2067f4a053": {
+    "miniName": "TMMA",
+    "shortName": "MMA",
+    "midName": "Team MMA",
+    "fullName": "Team Mixed Martial Arts",
+    "players": {
+      "0c955b65-d6d8-4839-bccd-b7db7ee60849": {
+        "name": "Conor Mcgregor"
+      },
+      "6ef64add-fd99-4e7d-b9c6-615c68df3c82": {
+        "name": "Khabib Nurmagomedov"
+      },
+      "02b83c25-c1e7-4135-bd99-5d78ec0a3695": {
+        "name": "Daniel Cormier"
+      },
+      "40dc986c-8dde-48ce-9077-df2a63fe66ef": {
+        "name": "George Saint Pierre"
+      },
+      "709ba4d3-7dfa-406e-92c5-37f9ef2433fb": {
+        "name": "Chuck Liddell"
+      },
+      "e332ca16-e569-4165-b23f-1f700a7108dc": {
+        "name": "Randy Cotoure"
+      },
+      "d12c0c97-6441-404b-b1ea-b7baaa07c34d": {
+        "name": "Jon Jones"
+      },
+      "a5919544-e5f6-4dd8-b220-51dc5d90db22": {
+        "name": "Anderson Silva"
+      },
+      "2642a7dc-b655-4d74-b159-dd5ab9c0c466": {
+        "name": "Gordon Ryan"
+      },
+      "668b28a9-1e8c-410b-93b8-8aa482b670b7": {
+        "name": "Leandro Lo"
+      },
+      "3668ca4a-b3f9-4c99-a381-61afe9514c68": {
+        "name": "Rafael Mendes"
+      },
+      "fc1c8903-32eb-476a-8b67-5ee7faa98be1": {
+        "name": "Gui Mendes"
+      },
+      "d003bf48-11db-4f35-a3d8-e799e0621786": {
+        "name": "Keenan Cornelius"
+      }
+    }
+  },
+  "df14d33e-f315-42e4-b976-466383c3b1a7": {
+    "miniName": "TCC",
+    "shortName": "Cricket Club",
+    "midName": "Team CC",
+    "fullName": "Team Cricket Club",
+    "players": {
+      "c39b4399-7fae-47ba-99c1-010a758d1131": {
+        "name": "Don Bradman"
+      },
+      "b8192ac7-6f78-4309-b165-e425417bc5fb": {
+        "name": "Adam Gilchrist"
+      },
+      "33a3d847-d70d-4e3d-a999-00a66fe5c010": {
+        "name": "Ricky Ponting"
+      },
+      "37ae7339-4d76-493b-8226-3da2eddd37e0": {
+        "name": "Shane Warne"
+      },
+      "535c617e-0343-4fd3-ab30-c5af1345cfcf": {
+        "name": "Glen McGrath"
+      },
+      "435295c0-4e38-41b4-83cd-ec15617991f2": {
+        "name": "Steve Waugh"
+      },
+      "89bd32f7-5ba4-4d35-ab79-0375a7059a13": {
+        "name": "Allan Border"
+      },
+      "fe30af04-e5bf-44d6-9d6f-591e887240a4": {
+        "name": "Shane Watson"
+      },
+      "78946502-4acd-4575-828a-139102bfdd66": {
+        "name": "Michael Hussey"
+      },
+      "6c367259-de2c-4086-b90b-82687b27666d": {
+        "name": "Michael Clarke"
+      },
+      "b523de6c-9b9d-4f05-bcd7-b365252bfc7a": {
+        "name": "Mathew Hayden"
+      },
+      "18d6f9e1-5808-4c3f-a8e0-12f6b0c428ef": {
+        "name": "Steve Smith"
+      },
+      "fbfd2fb9-0aaf-4046-a7f4-14c19f268379": {
+        "name": "Justin Langer"
+      }
+    }
+  }
+}
